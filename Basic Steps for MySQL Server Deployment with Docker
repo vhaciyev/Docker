@@ -1,0 +1,37 @@
+1. Downloading a MySQL Server Docker Image
+   docker pull mysql/mysql-server:tag
+   tag - en son versiyaları qeyd edə biləsiniz və ya https://hub.docker.com/r/mysql/mysql-server/tags/ burdan tapmaq olar.
+-------------------------------------
+   shell> docker images
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+mysql/mysql-server   latest              3157d7f55f8d        4 weeks ago         241MB
+-------------------------------------
+   
+   
+2.Starting a MySQL Server Instance
+  docker run --name=mysql1 -d mysql/mysql-server:tag (latest)
+   # name - konteyneriniz üçün xüsusi bir ad təmin etmək üçün bir ad seçimi olmalıdır.
+  docker ps 
+   # əmrini işə saldıqda konteyner işləyən konteynerlər siyahısında görünür; misal üçün:
+-------------------------------------------
+   shell> docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED             STATUS                              PORTS                NAMES
+a24888f0d6f4   mysql/mysql-server   "/entrypoint.sh my..."   14 seconds ago      Up 13 seconds (health: starting)    3306/tcp, 33060/tcp  mysql1
+-----------------------------------------------
+
+3.Connecting to MySQL Server from within the Container
+  #ilk öncə root  istifadəçi üçün yaradılan təsadüfi paroldan ibarət olacaq; parolu yoxlamaq lazımdır.
+-------------------------------------------------
+shell> docker logs mysql1 2>&1 | grep GENERATED
+GENERATED ROOT PASSWORD: Axegh3kAJyDLaRuBemecis&EShOs
+-----------------------------------------------------
+  # Daha sonra klineti serverə qoşaq
+  docker exec -it mysql1 mysql -uroot -p
+  və root paswordu dəyişək.
+---------------------------------------
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'newpassword';
+---------------------------------------
+4. Container Shell Access
+docker exec -it mysql1 bash 
+# əmri ilə conteynirinizdəki  girişi əldə edirsiniz.
+### Sistem hazırdır.
