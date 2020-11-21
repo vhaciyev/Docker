@@ -1,0 +1,11 @@
+generate ssh keypair local da: ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+public i ora, 
+private i ise secret e
+
+https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
+
+
+3 step:
+- generate ssh key-pair
+- add public key in repo (https://github.com/NEC-X-Code-reviewer/db-utils/settings/keys)
+- aee private key in git action secret(https://github.com/NEC-X-Code-reviewer/api-server/settings/secrets/actions)
